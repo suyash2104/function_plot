@@ -1,0 +1,62 @@
+# import os
+import tkinter
+
+
+# def cls():
+#     os.system('clear')
+
+def draw_axes(canvas):
+    canvas.update()
+    x_origin = canvas.winfo_width() / 2
+    y_origin = canvas.winfo_height() / 2
+    canvas.configure(scrollregion=(-x_origin, -y_origin, x_origin, y_origin))
+    canvas.create_line(-x_origin, 0, x_origin, 0, fill="black")
+    canvas.create_line(0, -y_origin, 0, y_origin, fill="black")
+
+
+def plot(page, y, x):
+    page.create_line(x, y, x+1, y+1, fill='red')
+
+
+
+def power():
+    n = int(input("enter the power: "))
+    coeff = list()
+    for i in range(n+1):
+        temp = int(input("enter the {} coefficient: " .format(i)))
+        coeff.append(temp)
+
+
+    mainwindow = tkinter.Tk()
+
+    mainwindow.geometry("640x480")
+    mainwindow.title("functions")
+
+    canvas = tkinter.Canvas(mainwindow, height=480, width=640)
+    canvas.grid(row=0, column=0)
+    draw_axes(canvas)
+
+    for x in range(-100, 100):
+        y = 0
+        for i in range(n+1):
+            y += coeff[n-i]*(x**i)
+        # print(y, x)
+        plot(canvas, -y, x)
+    mainwindow.mainloop()
+
+
+print(" " * 40 + "Welcome to the functions plot\n")
+print("1. Power functions\n2. Logarithmic functions\n3. Sinusidal function")
+choice = int(input("Enter your choice: "))
+# cls()
+
+if choice == 1:
+    print("Power function\n")
+    power()
+
+elif choice == 2:
+    print("Log function\n")
+
+elif choice == 3:
+    print("Sinusidal function\n")
+
